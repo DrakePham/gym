@@ -21,11 +21,17 @@ const getWorkout = async () => {
   // }
 
   const data = await pool.query("select * from gym");
-  const dataWorkout = data.rows[0];
+  const dataWorkout = data.rows;
+  console.log(dataWorkout);
   return dataWorkout;
+};
+
+const deleteWorkout = async (id) => {
+  await pool.query('DELETE FROM "gym" where "date" = $1', [id]);
 };
 
 module.exports = {
   createWorkout,
   getWorkout,
+  deleteWorkout,
 };

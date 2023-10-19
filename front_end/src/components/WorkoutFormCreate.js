@@ -39,10 +39,10 @@ export default function WorkoutModal({ isOpen, onShow }) {
   const sendData = async (data) => {
     try {
       // const endPointURL = 'http://localhost::3003/api';
-      console.log(data);
+      // console.log(data);
       const endPointURL = "http://localhost:3003/workout/workoutCreate";
       const response = await axios.post(endPointURL, data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error("There was a problem with the request:", error);
     }
@@ -50,7 +50,7 @@ export default function WorkoutModal({ isOpen, onShow }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     // Send formData to the backend or handle it as per your requirements.
     const data = {
       bodyPart: formData.bodyPart,

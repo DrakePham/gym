@@ -1,10 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-import WorkoutFormCreate from './components/WorkoutFormCreate';
-import WorkoutForm from './components/WorkoutForm';
-import Bar from './components/ResponsiveAppBar'
-import ExpandingButton from './components/addButton'
-import Modal from './components/modal';
+import logo from "./logo.svg";
+import "./App.css";
+import WorkoutFormCreate from "./components/WorkoutFormCreate";
+import WorkoutForm from "./components/WorkoutForm";
+import Bar from "./components/ResponsiveAppBar";
+import ExpandingButton from "./components/addButton";
+import Modal from "./components/modal";
+import Table from "./components/Table";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Bar />
       <Modal />
 
-      <WorkoutForm />
+      <Table />
+      {/* <WorkoutForm /> */}
       {/* <ExpandingButton /> */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />

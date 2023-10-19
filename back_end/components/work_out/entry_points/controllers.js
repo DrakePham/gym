@@ -1,4 +1,4 @@
-const workoutService = require('../domain/services');
+const workoutService = require("../domain/services");
 
 // exports.getAllWorkouts = async (req, res) => {
 //     try {
@@ -10,49 +10,67 @@ const workoutService = require('../domain/services');
 // };
 
 const createWorkout = async (req, res) => {
-    try {
-        // Validate input (optional, but recommended)
-        if (!req.body.bodyPart || !req.body.workoutType) {
-            return res.status(400).send("Required fields: bodyPart, workoutType");
-        }else{
-            console.log(req.body.bodyPart);
-        }
-
-        const newWorkout = {
-            userID : req.body.userID,
-            bodyPart: req.body.bodyPart,
-            workoutType: req.body.workoutType,
-            reps: req.body.reps,
-            sets: req.body.sets,
-            date: req.body.date
-        };
-
-        const result = await workoutService.create(newWorkout);
-        res.status(201).json('work_out_controller_good');
-    } catch (error) {
-        res.status(500).send(error.message);
+  try {
+    // Validate input (optional, but recommended)
+    if (!req.body.bodyPart || !req.body.workoutType) {
+      return res.status(400).send("Required fields: bodyPart, workoutType");
+    } else {
+      console.log(req.body.bodyPart);
     }
+
+    const newWorkout = {
+      userID: req.body.userID,
+      bodyPart: req.body.bodyPart,
+      workoutType: req.body.workoutType,
+      reps: req.body.reps,
+      sets: req.body.sets,
+      date: req.body.date,
+    };
+
+    const result = await workoutService.create(newWorkout);
+    res.status(201).json("work_out_controller_good");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 };
 
 
+
 const getWorkout = async (req, res) => {
+  try {
+    const data = await workoutService.get();
+    // const dataReturn = {
+    //     userID: data.user_id,
+    //     bodyPart: data.body_part,
+    //     workoutType: data.exercise,
+    //     reps: data.repetition,
+    //     sets: data.set,
+    //     date: data.date
+    // }
+    // console.log(data);
+
+
+
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send("controller_layer_error_getWorkout");
+  }
+};
+// getWorkout();
+
+const deleteWorkout = async (req, res) => {
     try {
-        const data = await workoutService.get();
-        const dataReturn = {
-            userID: data.user_id,
-            bodyPart: data.body_part,
-            workoutType: data.exercise,
-            reps: data.repetition,
-            sets: data.set,
-            date: data.date
-        }
-        res.status(201).send(dataReturn);
+        const { id } = req.params;
+
+        await workoutService.deleteWorkout(id);
+        res.status(201).json("Delete complete");
     } catch (error) {
-        res.status(500).send("controller_layer_error");
+        res.status(500).send("controller_layer_error_deleteWorkout");
     }
 };
 
 module.exports = {
-    createWorkout, 
-    getWorkout,
+  createWorkout,
+  getWorkout,
+  deleteWorkout,
 };
