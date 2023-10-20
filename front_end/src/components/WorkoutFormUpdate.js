@@ -19,15 +19,16 @@ import {
 import { Add as AddIcon, Close as CloseIcon } from "@mui/icons-material";
 import { number } from "prop-types";
 
-export default function WorkoutModal({ isOpen, onShow }) {
+export default function WorkoutFormUpdate({ isOpen, onShow, data }) {
   const [formData, setFormData] = useState({
     userID: "21",
-    bodyPart: "",
-    workoutType: "",
-    reps: 0,
-    sets: 0,
-    date: "",
+    bodyPart: data.bodyPart,
+    workoutType: data.workoutType,
+    reps: data.reps,
+    sets: data.sets,
+    date: data.data,
   });
+//   console.log(data);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,21 +37,21 @@ export default function WorkoutModal({ isOpen, onShow }) {
     // console.log(formData);
   };
 
-  const sendData = async (data) => {
-    try {
-      // const endPointURL = 'http://localhost::3003/api';
-      // console.log(data);
-      const endPointURL = "http://localhost:3003/workout/workoutCreate";
-      const response = await axios.post(endPointURL, data);
-      // console.log(response.data);
-    } catch (error) {
-      console.error("There was a problem with the request:", error);
-    }
-  };
+//   const sendData = async (data) => {
+//     try {
+//       // const endPointURL = 'http://localhost::3003/api';
+//       // console.log(data);
+//       const endPointURL = "http://localhost:3003/workout/workoutCreate";
+//       const response = await axios.post(endPointURL, data);
+//       // console.log(response.data);
+//     } catch (error) {
+//       console.error("There was a problem with the request:", error);
+//     }
+//   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     // Send formData to the backend or handle it as per your requirements.
     const data = {
       bodyPart: formData.bodyPart,
@@ -59,7 +60,7 @@ export default function WorkoutModal({ isOpen, onShow }) {
       sets: formData.sets,
     };
     // console.log(data);
-    sendData(formData);
+    // sendData(formData);
   };
 
   return (
@@ -135,7 +136,7 @@ export default function WorkoutModal({ isOpen, onShow }) {
             }}
           >
             <Button variant="contained" color="primary" type="submit">
-              Create
+              Update
             </Button>
             <Button onClick={onShow}>Close</Button>
           </div>

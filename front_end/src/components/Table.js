@@ -13,6 +13,8 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
+import WorkoutFormUpdate from './WorkoutFormUpdate';
+import Modal from '@mui/material/Modal';
 
 const columns = [
   { id: "userID", label: "User ID", minWidth: 170 },
@@ -58,6 +60,11 @@ function ColumnGroupingTable() {
     },
   ]);
 
+  const [isUpdate, setUpdate] = useState(false);
+
+  const handleOpenUpdate = () => setUpdate(true);
+  const handleCloseUpdate = () => setUpdate(false);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -95,18 +102,19 @@ function ColumnGroupingTable() {
   }, []);
 
   const handleDelete = (id) => {
-    const link = 'http://localhost:3003/workout/:' + id;
+    const link = "http://localhost:3003/workout/:" + id;
 
     console.log(link);
-      axios.delete(link).then(response => {
+    axios
+      .delete(link)
+      .then((response) => {
         console.log(`Deleted post with ID ${id}`);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
-      window.location.reload();
-    };
-
+    window.location.reload();
+  };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
@@ -155,7 +163,24 @@ function ColumnGroupingTable() {
                       );
                     })}
                     <Stack direction="row" spacing={2}>
-                      <Button variant="contained">Update</Button>
+                      <div>
+                        <Button onClick={handleOpenUpdate}>Update</Button>
+                        <Modal
+                          keepMounted
+                          open={isUpdate}
+                          // onClose={handleClose}
+                          aria-labelledby="keep-mounted-modal-title"
+                          aria-describedby="keep-mounted-modal-description"
+                        >
+                          <WorkoutFormUpdate
+                            isOpen={isUpdate}
+                            onShow={() => handleCloseUpdate()}
+                            data = {row}
+                          />
+                        </Modal>
+                      </div>
+                      
+                      
                       <Button
                         variant="outlined"
                         onClick={() => handleDelete(row.date)}

@@ -33,7 +33,7 @@ export default function KeepMountedModal() {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
-        <WorkoutFormCreate  isOpen= {open} onShow={() => handleClose()}/>
+        <WorkoutFormCreate  isOpen= {open} onShow={() => handleClose()} />
       </Modal>
     </div>
   );
